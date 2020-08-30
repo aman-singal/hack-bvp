@@ -29,9 +29,9 @@ passport.use(new passportLocal(userModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-///const URL =
-//"mongodb+srv://bhupesh8222:bhupesh8222@cluster0.pd8xh.mongodb.net/Healthcare?retryWrites=true&w=majority";
-const URL = "mongodb://localhost:27017/Record";
+const URL =
+"mongodb+srv://bhupesh8222:bhupesh8222@cluster0.pd8xh.mongodb.net/Healthcare?retryWrites=true&w=majority";
+// const URL = "mongodb://localhost:27017/Record";
 mongoose
     .connect(URL, { useUnifiedTopology: true, useNewUrlParser: true })
     .then((res) => {
@@ -51,6 +51,6 @@ app.use("/patient", patientRoute);
 app.use("/hospital", hospitalRoute);
 app.use(authenticationRoute);
 
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log("The server is listening to the request!");
 });

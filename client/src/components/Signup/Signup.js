@@ -8,7 +8,9 @@ import SelectHelper from '../sub-components/SelectHelper'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import Alert from '../sub-components/Alert'
-
+import store from '../../store/store'
+import * as actions from '../../store/actionTypes'
+import {useLayoutEffect} from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +72,10 @@ function Register() {
     const classes = useStyles();
     const [isLoading,setLoading] = useState(false) 
     const [error,setError] = useState('')
+
+    useLayoutEffect(() => {
+        store.dispatch({type: actions.APPBAR_TITLE , payload: 'SignUp'})
+    }, [])
 
     return (
         <StylesProvider>

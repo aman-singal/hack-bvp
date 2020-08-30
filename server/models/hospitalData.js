@@ -3,8 +3,8 @@ const PatientSchema = require("./patientData").PatientSchema;
 const Hospitalschema = mongoose.Schema({
     HospitalName: String,
     address: String,
-    currentPatients = [PatientSchema],
-    previousPatients: [PatientSchema],
+    currentPatients: PatientSchema,
+    previousPatients: PatientSchema,
     Specialist: [{
         specialistName: String,
         areaOfSpecialisation: String

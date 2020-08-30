@@ -8,6 +8,9 @@ import axios from 'axios'
 import Alert from '../sub-components/Alert'
 import { useHistory } from "react-router-dom";
 import {useCookies} from 'react-cookie'
+import store from '../../store/store'
+import * as actions from '../../store/actionTypes'
+import {useLayoutEffect} from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,7 +67,11 @@ function Login() {
     const [isLoading,setLoading] = useState(false) 
     const [error,setError] = useState('')
     const [cookies, setCookie, removeCookie] = useCookies(['secureID']);
-
+    
+    useLayoutEffect(() => {
+        store.dispatch({type: actions.APPBAR_TITLE , payload: 'Login'})
+    }, [])
+    
     return (
         <StylesProvider>
             <RegisterStyle />

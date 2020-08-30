@@ -11,7 +11,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from "react-router-dom";
 import { Button } from '@material-ui/core';
-
+import store from '../../store/store'
+import * as actions from '../../store/actionTypes'
+import {useLayoutEffect} from 'react';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -115,6 +117,10 @@ export default function StickyHeadTable() {
   const clickHandler = (item) =>{
     history.push('/addpatientprofile')
   }
+
+  useLayoutEffect(() => {
+    store.dispatch({type: actions.APPBAR_TITLE , payload: 'Current Patient List'})
+  }, [])
 
   return (
       <>

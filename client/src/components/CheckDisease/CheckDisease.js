@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useLayoutEffect} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -7,6 +7,8 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import store from '../../store/store'
+import * as actions from '../../store/actionTypes'
 
 const useStyles = makeStyles({
   selectBox:{
@@ -21,6 +23,9 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 export default function CheckboxesTags() {
 
   const classes = useStyles();
+  useLayoutEffect(() => {
+    store.dispatch({type: actions.APPBAR_TITLE , payload: 'Check Diseace'})
+  }, [])
   return (
     <>
     <Typography variant="h6" gutterBottom style={{marginLeft: '5%'}}>Enter Syntoms</Typography>
@@ -51,6 +56,8 @@ export default function CheckboxesTags() {
     </>
   );
 }
+
+
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [

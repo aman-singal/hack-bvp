@@ -4,9 +4,9 @@ import produce from "immer"
 export default function reducer(state ={},action){
     let nextState;
     switch(action.type){
-        case actions.PLAYER_SCORE:
+        case actions.APPBAR_TITLE:
              nextState = produce(state,draftState =>{
-                draftState.playerScore = action.payload
+                draftState.appbarTitle = action.payload
             })
         return nextState
 

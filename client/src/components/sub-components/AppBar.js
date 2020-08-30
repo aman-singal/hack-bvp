@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useLayoutEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -16,18 +16,21 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from "react-router-dom";
+import store from '../../store/store'
+
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    flexGrow: 1,
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    flexGrow: 1,
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -36,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -82,7 +86,7 @@ export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [value, setValue] = React.useState('Homepage')
+  const [value, setValue] = React.useState('')
   const [open, setOpen] = React.useState(false);
 
   const sideItemLists = ['Home' ,'Check Disease', 'Profile', 'Current Patient', 'Old Patient' , 'Add New Patient' , 'Verify Patient Status' , 'Verify Medication']
@@ -128,11 +132,20 @@ export default function PersistentDrawerLeft(props) {
     setOpen(false);
   }
 
+  useLayoutEffect(() => {
+    const unsub = store.subscribe(()=>{
+      setValue(store.getState().appbarTitle)
+      console.log(store.getState())
+    })
+
+    return unsub
+  }, [])
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position="static"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -150,7 +163,13 @@ export default function PersistentDrawerLeft(props) {
           <Typography variant="h6" className={classes.title}>
            {value}
           </Typography>
-          <Button style={{marginLeft: '80%'}} color="inherit">Login</Button>
+
+          <span style={{marginLeft: '70%'}}>
+          <Button color="inherit" onClick={() => {history.push('/login')}}>Login</Button>
+          <Button color="inherit" onClick={() => {history.push('/signup')}}>SignUp</Button>
+          </span>
+          
+          
         </Toolbar>
       </AppBar>
       <Drawer

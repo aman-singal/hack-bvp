@@ -7,6 +7,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import store from '../../store/store'
+import * as actions from '../../store/actionTypes'
+import {useLayoutEffect} from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -38,7 +41,10 @@ function Profile() {
 
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
-    
+
+    useLayoutEffect(() => {
+      store.dispatch({type: actions.APPBAR_TITLE , payload: 'Profile'})
+    }, [])
     return (
         <div>
             <Container maxWidth="lg" className={classes.root} border={1}>
