@@ -10,11 +10,11 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-    let newUser = new User({
+    let newUser = new UserModel({
         username: req.body.username,
         userType: req.body.userType,
     });
-    User.register(newUser, req.body.password, (error, user) => {
+    UserModel.register(newUser, req.body.password, (error, user) => {
         if (error) console.log(error);
         passport.authenticate("local")(req, res, function() {
             if (req.body.userType == "Patient") {

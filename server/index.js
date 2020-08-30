@@ -2,12 +2,21 @@ let express = require("express");
 let bodyParser = require("body-parser");
 let mongoose = require("mongoose");
 let passport = require("passport");
+const cors = require('cors');
 let expressSession = require("express-session");
 let passportLocal = require("passport-local");
 let passportLocalMongoose = require("passport-local-mongoose");
 const app = express();
 const UserModel = require("./models/Data.js").UserModel;
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+);
 
 app.use(
     expressSession({

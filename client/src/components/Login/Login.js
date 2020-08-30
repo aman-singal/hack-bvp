@@ -82,33 +82,33 @@ function Login() {
             onSubmit={(values  , {setSubmitting })=> {
                 console.log('submit req send')
                 setLoading(true)
-                // axios({
-                //     method: 'post',
-                //     url: 'https://dry-spire-00712.herokuapp.com/api/login',
-                //     headers: {}, 
-                //     data: {
-                //       email: values.email,
-                //       password: values.password,
-                //     }
-                //   })
-                //   .then((res) =>{
-                //       console.log(res.data)
-                //       if(res.data.status === 'success'){
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:4000/login',
+                    headers: {}, 
+                    data: {
+                      username: values.email,
+                      password: values.password,
+                    }
+                  })
+                  .then((res) =>{
+                      console.log(res.data)
+                      if(res.data.status === 'success'){
                         
-                //         if(cookies){
-                //             removeCookie('secureID' , '/')
-                //         }
-                //         setCookie('secureID' , res.data.data , '/' )
-                //         history.push('/')
+                        if(cookies){
+                            removeCookie('secureID' , '/')
+                        }
+                        setCookie('secureID' , res.data.data , '/' )
+                        history.push('/')
                       
-                //     }
-                //       else{
-                //         setError(res.data.message)
-                //       }
-                //   })
-                //   .catch(err => {
-                //       console.log('err in the req' , err)
-                //   })
+                    }
+                      else{
+                        setError(res.data.message)
+                      }
+                  })
+                  .catch(err => {
+                      console.log('err in the req' , err)
+                  })
                   setLoading(false)
                   setSubmitting(false)
             }}

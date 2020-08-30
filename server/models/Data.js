@@ -68,7 +68,7 @@ module.exports.HospitalModel = HospitalModel;
 //user details
 
 const userSchema = new mongoose.Schema({
-    username: Number, //username is the unique id
+    username: String, //username is the unique id
     UserType: String,
     password: String,
     PatientDetails: PatientSchema,

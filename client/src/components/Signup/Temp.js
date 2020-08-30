@@ -48,40 +48,40 @@ const RegisterStyle = withStyles({
 
 
     const validationSchema = Yup.object().shape({
-        // email: Yup.string()
-        // .email("Enter a valid Email address")
-        // .required("Email address is required"),
+        email: Yup.string()
+        .email("Enter a valid Email address")
+        .required("Email address is required"),
 
-        // password: Yup.string()
-        // .min(6, "Password Should be atleast 6 char long")
-        // .required("Password is required"),
+        password: Yup.string()
+        .min(6, "Password Should be atleast 6 char long")
+        .required("Password is required"),
 
-        // passwordConfirmation: Yup.string()
-        // .oneOf([Yup.ref('password'), null], 'Password is not same'),
+        passwordConfirmation: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Password is not same'),
 
-        // privilage: Yup.string()
-        // .ensure()
-        // .required("Privilage is required"),
+        privilage: Yup.string()
+        .ensure()
+        .required("Privilage is required"),
 
-        // age: Yup.number()
-        // .required('This is required'),
+        age: Yup.number()
+        .required('This is required'),
 
-        // aadharNo: Yup.number()
-        // .required('This is required'),
+        aadharNo: Yup.number()
+        .required('This is required'),
 
-        // name: Yup.string()
-        // .required(3,'Name Should be atleast 6 char long'),
+        name: Yup.string()
+        .required(3,'Name Should be atleast 6 char long'),
 
-        // sex: Yup.string()
-        // .ensure()
-        // .required("Sex is required"),
+        sex: Yup.string()
+        .ensure()
+        .required("Sex is required"),
 
-        // HospitalName: Yup.string()
-        // .required(3,'Hospital Name Should be atleast 6 char long'),
+        HospitalName: Yup.string()
+        .required(3,'Hospital Name Should be atleast 6 char long'),
 
-        // address: Yup.string()
-        // .required(3,'Address Should be atleast 6 char long'),
-        
+        address: Yup.string()
+        .required(3,'Address Should be atleast 6 char long'),
+
     })
 
 
@@ -112,19 +112,19 @@ function Register() {
                 state.userType === 'Patient' ?
                 <div>
                 <Formik 
-                initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: '' , name: ''}}
+                initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: ''}}
                 validationSchema={validationSchema}
                 onSubmit={(values  , {setSubmitting })=> {
                     console.log('submit req send')
                     setLoading(true)
                             axios({
                                 method: 'post',
-                                url: 'http://localhost:4000/signup',
+                                url: 'localhost:4000/signup',
                                 headers: {}, 
                                 data: {
-                                username: values.email,
-                                password: values.password,
-                                userType: values.privilage,
+                                username: state.email,
+                                password: state.password,
+                                userType: state.userType,
                                 PatientName: values.name,
                                 AadharNo: values.aadharNo,
                                 sex: values.sex,
@@ -133,7 +133,7 @@ function Register() {
                             })
                             .then((res) =>{
                                 
-                                if(res.data._id ){
+                                if(res.data.id ){
                                     history.push('/login')
                                 }
                                 else{
@@ -152,10 +152,10 @@ function Register() {
                         <Grid container spacing={5}>
                             <Grid item xs={4}>
                                 <Paper className={classes.paper}>
-                                {/* {error !== '' ? <Alert severity="error" alertText={error} />: null} */}
+                                {error !== '' ? <Alert severity="error" alertText={error} />: null}
                                 <Typography style={{fontSize: '30px'}}>Personal Details</Typography>
                                 <div style={{marginTop: '10px'}}>
-                                    <FormTextField name="name" label="Name" placeholder="Name" type="text" />
+                                    <FormTextField name="name" label="Name" placeholder="Email Address" type="email" />
                                 </div>
                                 <div style={{marginTop: '10px'}}>
                                     <FormTextField name="aadharNo" label="Aadhar No." placeholder="Aadhar No." type="number" />
@@ -182,27 +182,26 @@ function Register() {
                 :
                 <div>
                 <Formik 
-                initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: '' , name: ''}}
+                initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: ''}}
                 validationSchema={validationSchema}
                 onSubmit={(values  , {setSubmitting })=> {
                     console.log('submit req send')
                     setLoading(true)
-                    debugger
                             axios({
                                 method: 'post',
-                                url: 'http://localhost:4000/signup',
+                                url: 'localhost:4000/signup',
                                 headers: {}, 
                                 data: {
-                                username: values.email,
-                                password: values.password,
-                                userType: values.privilage,
+                                username: state.email,
+                                password: state.password,
+                                userType: state.userType,
                                 HospitalName: values.HospitalName,
                                 address: values.address
                                 }
                             })
                             .then((res) =>{
                                 
-                                if(res.data._id ){
+                                if(res.data.id ){
                                     history.push('/login')
                                 }
                                 else{
@@ -223,7 +222,7 @@ function Register() {
                         <Grid container spacing={5}>
                             <Grid item xs={4}>
                                 <Paper className={classes.paper}>
-                                {/* {error !== '' ? <Alert severity="error" alertText={error} />: null} */}
+                                {error !== '' ? <Alert severity="error" alertText={error} />: null}
                                 <Typography style={{fontSize: '30px'}}>Hospital Details</Typography>
                                 <div style={{marginTop: '10px'}}>
                                     <FormTextField name="HospitalName" label="Hospital Name" placeholder="Hospital Name" type="text" />
@@ -247,19 +246,77 @@ function Register() {
             :
             <div>
             <Formik 
-            initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: '' , name: '' }}
+            initialValues={{email: '' , password: "" , passwordConfirmation: '' , privilage: '' ,aadharNo: 0 , age: 0, sex: '' , address: '' , HospitalName: ''}}
             validationSchema={validationSchema}
             onSubmit={(values  , {setSubmitting })=> {
-                
                 console.log('submit req send')
-                // setLoading(true)
-                setstate({userType: values.privilage,
-                        username: values.email,
-                        password: values.password
-                })
-                setIsNext(true)     
-                setLoading(false)
-                setSubmitting(false)
+                setLoading(true)
+                if(isNext){
+                    if (state.userType === 'Patient'){
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:4000/signup',
+                            headers: {}, 
+                            data: {
+                              username: state.email,
+                              password: state.password,
+                              userType: state.userType,
+                              PatientName: values.name,
+                              AadharNo: values.aadharNo,
+                              sex: values.sex,
+                              age: values.age,
+                            }
+                          })
+                          .then((res) =>{
+                              
+                              if(res.data.id ){
+                                history.push('/login')
+                              }
+                              else{
+                                setError(res.data)
+                              }
+                          })
+                          .catch(err => {
+                              console.log('err in the req' , err)
+                          })
+                    }else{
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:4000/signup',
+                            headers: {}, 
+                            data: {
+                              username: state.email,
+                              password: state.password,
+                              userType: state.userType,
+                              HospitalName: values.HospitalName,
+                              address: values.address
+                            }
+                          })
+                          .then((res) =>{
+                              
+                              if(res.data.id ){
+                                history.push('/login')
+                              }
+                              else{
+                                setError(res.data)
+                              }
+                          })
+                          .catch(err => {
+                              console.log('err in the req' , err)
+                          })
+                    }
+                    
+                }else{
+                    setstate({userType: values.privilage,
+                            username: values.email,
+                            password: values.password})
+
+                       setIsNext(true)     
+                }
+                
+                  
+                  setLoading(false)
+                  setSubmitting(false)
                 
             }}
             >
@@ -269,7 +326,7 @@ function Register() {
                     <Grid container spacing={5}>
                         <Grid item xs={4}>
                             <Paper className={classes.paper}>
-                            {/* {error !== '' ? <Alert severity="error" alertText={error} />: null} */}
+                            {error !== '' ? <Alert severity="error" alertText={error} />: null}
                             <Typography style={{fontSize: '30px'}}>SignUp</Typography>
                             <div style={{marginTop: '10px'}}>
                                 <FormTextField name="email" label="Email" placeholder="Email Address" type="email" />
@@ -284,7 +341,7 @@ function Register() {
                                 <SelectHelper name='privilage' label="Select Role"  options={['Patient' , 'Hospital']} />     
                             </div>
                             <div style={{marginTop: '20px'}}>
-                                <Button type="submit"  disabled={isSubmitting} variant="contained"  color="primary" style={{width: '300px'}}>
+                                <Button type="submit" disabled={isSubmitting} variant="contained"  color="primary" style={{width: '300px'}}>
                                 {isLoading?  "Loading..." : "Next"}
                                 </Button>
                             </div>
@@ -304,3 +361,8 @@ function Register() {
 }
 
 export default Register
+
+
+
+
+
