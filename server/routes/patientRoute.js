@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const PatientModel = require("../models/patientData.js").PatientModel;
 const mongoose = require("mongoose");
-const UserModel = require("../models/user");
-const { LabReportModel } = require("../models/LabReport.js");
-const PrescriptionModel = require("../models/LabReport").PrescriptionModel;
-const OperationModel = require("../models/LabReport").OperationModel;
-const HospitalModel = require("../models/hospitalData").HospitalModel;
+const { PatientModel } = require("../models/Data.js");
+const { LabReportModel } = require("../models/Data.js");
+const { PrescriptionModel } = require("../models/Data.js");
+const { OperationModel } = require("../models/Data.js");
+const { HospitalModel } = require("../models/Data.js");
 const IsUserLoggedIn = (req, res, next) => {
     if (req.isAuthenticated() && req.user.PatientDetails) {
         return next();

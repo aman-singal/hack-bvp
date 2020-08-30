@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const PatientModel = require("./models/patientData.js").PatientModel;
-const HospitalModel = require("./models/HospitalData.js");
+const PatientModel = require("../models/Data.js").PatientModel;
+const HospitalModel = require("../models/Data.js").HospitalModel;
 const mongoose = require("mongoose");
 
 const IsUserLoggedIn = (req, res, next) => {
