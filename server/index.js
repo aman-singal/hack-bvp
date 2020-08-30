@@ -5,13 +5,8 @@ let passport = require("passport");
 let expressSession = require("express-session");
 let passportLocal = require("passport-local");
 let passportLocalMongoose = require("passport-local-mongoose");
-const UserModel = require("./models/user");
 const app = express();
-
-const flash = require("connect-flash");
-
-app.use(flash());
-
+const UserModel = require("./models/Data.js").UserModel;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
@@ -25,13 +20,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new passportLocal(userModel.authenticate()));
+passport.use(new passportLocal(UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-///const URL =
-//"mongodb+srv://bhupesh8222:bhupesh8222@cluster0.pd8xh.mongodb.net/Healthcare?retryWrites=true&w=majority";
-const URL = "mongodb://localhost:27017/Record";
+const URL =
+    "mongodb+srv://bhupesh8222:bhupesh8222@cluster0.pd8xh.mongodb.net/Healthcare?retryWrites=true&w=majority";
+//const URL = "mongodb://localhost:27017/Record";
 mongoose
     .connect(URL, { useUnifiedTopology: true, useNewUrlParser: true })
     .then((res) => {

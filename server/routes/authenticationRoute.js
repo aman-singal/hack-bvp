@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require("passport");
-const PatientModel = require("../models/patientData");
-const UserModel = require("../models/user").UserModel;
-const HospitalModel = require("../models/hospitalData").HospitalModel;
+const PatientModel = require("../models/Data.js").PatientModel;
+const UserModel = require("../models/Data.js").UserModel;
+const HospitalModel = require("../models/Data.js").HospitalModel;
 
 router.get("/signup", (req, res) => {
     //render the signup page;
